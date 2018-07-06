@@ -10,7 +10,7 @@ const ParagraphStyle = styled.p`
 
 class App extends Component {
   componentDidMount() {
-    axios.get('http://98faf6b9.ngrok.io/g/')
+    axios.get('http://localhost:5000/')
       .then(res => console.log(res))
   }
 
@@ -45,9 +45,9 @@ class App extends Component {
 
   render() {
     return (
-      <div classNameName="App">
+      <div className="App">
         <div className="ui inverted vertical masthead center aligned segment">
-          <div classNameName="ui text container">
+          <div className="ui text container">
             <center>
               { this.state.isLogin ?
                 <React.Fragment>
@@ -57,7 +57,7 @@ class App extends Component {
                     <i class="facebook icon" />Bye Bye
                   </button>
                 </React.Fragment>
-                : 
+                :
                 <React.Fragment>
                   <h1 className="ui inverted">
                     <div className="ui tiny image">
@@ -75,7 +75,7 @@ class App extends Component {
                     icon='facebook icon'
                   />
                 </React.Fragment>
-              }  
+              }
             </center>
           </div>
         </div>
