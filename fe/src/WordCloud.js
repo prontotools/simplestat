@@ -11,7 +11,7 @@ const words = [
 class WordCloud extends React.Component {
   render() {
     return (
-      <div style={{width: 600, height: 400}}>
+      <div style={{width: 600, height: 400, border: '1px solid white'}}>
         <ReactWordCloud
           words={words}
           wordCountKey='value'
