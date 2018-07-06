@@ -38,8 +38,8 @@ def g():
 
     results = []
     for each in feed.get('data'):
-        message = each.get('message')
         post = {}
+        message = each.get('message')
         if message:
             post['title'] = message
             post['comments'] = []
@@ -49,9 +49,9 @@ def g():
                     comment_message = comment.get('message')
                     post['comments'].append(comment_message)
 
-                    comments_in_comments = comment.get('comments')
-                    if comments_in_comments:
-                        for comment_in_comment in comments_in_comments.get('data'):
+                    comments_in_comment = comment.get('comments')
+                    if comments_in_comment:
+                        for comment_in_comment in comments_in_comment.get('data'):
                             post['comments'].append(comment_in_comment.get('message'))
 
         results.append(post)
