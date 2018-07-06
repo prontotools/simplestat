@@ -9,7 +9,9 @@ import facebook
 FACEBOOK_GROUP_ID = '635133846845099'
 FACEBOOK_USER_ACCESS_TOKEN = os.getenv('FACEBOOK_USER_ACCESS_TOKEN')
 SINCE = '2018-07-04'
+
 app = Flask(__name__)
+
 CORS(app)
 
 
@@ -48,6 +50,43 @@ def index():
         results.append(post)
 
     return jsonify(results)
+
+
+@app.route('/t/')
+def test():
+    import json
+    from pythainlp.sentiment import sentiment
+
+    with open('simplestat.json') as f:
+        d = json.load(f)
+        for each in d:
+            sentiment_results = {
+                'pos': 0,
+                'neg': 0,
+            }
+            title = each.get('title')
+            if title:
+                if sentiment(title) == 'pos':
+                    sentiment_results['pos'] += 1
+                else:
+                    sentiment_results['neg'] += 1
+            comments = each.get('comments')
+            if comments:
+                for comment in comments:
+                    if sentiment(comment) == 'pos':
+                        sentiment_results['pos'] += 1
+                    else:
+                        sentiment_results['neg'] += 1
+
+            total = sentiment_results['pos'] + sentiment_results['neg']
+            if total:
+                sentiment_results['pos'] /= total
+                sentiment_results['neg'] /= total
+                print(title)
+                print(sentiment_results)
+                print(total)
+
+    return jsonify(d)
 
 
 if __name__ == '__main__':
