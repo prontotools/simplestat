@@ -22,6 +22,17 @@ def get_thread(id=1):
     return es.get(index='posts', doc_type='post', id=id)
 
 
+def search_thread(keyword=''):
+    search_query = {
+        'query': {
+            'match': {
+                'title': keyword
+            },
+        }
+    }
+    return es.search(index='posts', body=search_query)
+
+
 def get_all_post_in_group():
     graph = facebook.GraphAPI(
         access_token=FACEBOOK_USER_ACCESS_TOKEN,
