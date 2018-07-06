@@ -7,11 +7,14 @@ import {
   Route
 } from 'react-router-dom'
 
+import WordCloud from './WordCloud'
+
 const Routes = () => (
   <Router>
     <React.Fragment>
       <Route exact path='/' component={App} />
       <Route path='/main' component={App} />
+      <Route path='/wordcloud' component={WordCloud} />
     </React.Fragment>
   </Router>
 )
