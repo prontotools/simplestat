@@ -14,16 +14,7 @@ CORS(app)
 
 
 @app.route('/')
-def hello():
-    d = {
-        'name': 'Kan'
-    }
-
-    return jsonify(d)
-
-
-@app.route('/g/')
-def g():
+def index():
     graph = facebook.GraphAPI(
         access_token=FACEBOOK_USER_ACCESS_TOKEN,
         version='2.7'
