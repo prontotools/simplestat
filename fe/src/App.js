@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import axios from 'axios'
 
 const ParagraphStyle = styled.p`{
   fontFamily: 'Montserrat','sans-serif';
@@ -8,6 +9,11 @@ const ParagraphStyle = styled.p`{
 `
 
 class App extends Component {
+  componentDidMount() {
+    axios.get('http://98faf6b9.ngrok.io/g/')
+      .then(res => console.log(res))
+  }
+
   render() {
     return (
       <div classNameName="App">
@@ -28,4 +34,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default App
