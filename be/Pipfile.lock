@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "ede19b30b911c814940b1c44705042dacc7e15b1756b70fd20a377dbff519a99"
+            "sha256": "0366ecb8ed984cf65ff6f65a3c0145febb462f9eb6c5f9f0625afd8d80ccea22"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -42,6 +42,14 @@
                 "sha256:624dc244b94371bb2d6e7f40084228a2edfff02373fe20e018bef1ee92fdd5b3"
             ],
             "version": "==0.2.8.2"
+        },
+        "facebook-sdk": {
+            "hashes": [
+                "sha256:55b79292de407fb25be06594e0d7bcd36923c75499d5df18ff9da507d0fdb557",
+                "sha256:ddbcdd01187374f96e2c0ee574ad592673af49a9f895887bf1b112b9c8298e10"
+            ],
+            "index": "pypi",
+            "version": "==2.0.0"
         },
         "flask": {
             "hashes": [

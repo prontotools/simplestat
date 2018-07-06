@@ -7,6 +7,7 @@ name = "pypi"
 flask = "*"
 pythainlp = "*"
 flask-cors = "*"
+facebook-sdk = "*"
 
 [dev-packages]
 
