@@ -8,6 +8,7 @@ import facebook
 
 FACEBOOK_GROUP_ID = '635133846845099'
 FACEBOOK_USER_ACCESS_TOKEN = os.environ.get('FACEBOOK_USER_ACCESS_TOKEN')
+SINCE = '2018-07-04'
 app = Flask(__name__)
 CORS(app)
 
@@ -28,12 +29,34 @@ def g():
         version='2.7'
     )
 
-    query_string = 'fields=feed{comments{comments{message,created_time}' \
-        ',message,created_time},message,created_time,updated_time}'
+    query_string = f'fields=feed.since({SINCE})' \
+        '{comments{comments{message,created_time,like_count},' \
+        'message,created_time,like_count,reactions},' \
+        'message,created_time,updated_time,reactions}'
     endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
     feed = graph.request(endpoint_url).get('feed')
 
-    return jsonify(feed)
+    results = []
+    for each in feed.get('data'):
+        message = each.get('message')
+        post = {}
+        if message:
+            post['title'] = message
+            post['comments'] = []
+            comments = each.get('comments')
+            if comments:
+                for comment in comments.get('data'):
+                    comment_message = comment.get('message')
+                    post['comments'].append(comment_message)
+
+                    comments_in_comments = comment.get('comments')
+                    if comments_in_comments:
+                        for comment_in_comment in comments_in_comments.get('data'):
+                            post['comments'].append(comment_in_comment.get('message'))
+
+        results.append(post)
+
+    return jsonify(results)
 
 
 if __name__ == '__main__':
