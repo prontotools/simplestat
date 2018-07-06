@@ -37,6 +37,9 @@ def index():
             post['title'] = message
             post['created_time'] = each.get('created_time')
             post['update_time'] = each.get('updated_time')
+            post_id = each.get('id').split('_')[1]
+            url = f'https://www.facebook.com/groups/{FACEBOOK_GROUP_ID}/permalink/{post_id}/'
+            post['url'] = url
             post['comments'] = []
             comments = each.get('comments')
             if comments:
