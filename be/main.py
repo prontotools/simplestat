@@ -35,6 +35,8 @@ def index():
         message = each.get('message')
         if message:
             post['title'] = message
+            post['created_time'] = each.get('created_time')
+            post['update_time'] = each.get('updated_time')
             post['comments'] = []
             comments = each.get('comments')
             if comments:
