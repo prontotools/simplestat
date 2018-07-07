@@ -10,6 +10,7 @@ import {
 import WordCloud from './WordCloud'
 import Activities from './Activities'
 import Show from './Show'
+import Sentiment from './Sentiment'
 
 const Routes = () => (
   <Router>
@@ -19,6 +20,7 @@ const Routes = () => (
       <Route path='/wordcloud' component={WordCloud} />
       <Route path='/activities' component={Activities} />
       <Route path='/show' component={Show} />
+      <Route path='/sentiment' component={Sentiment} />
     </React.Fragment>
   </Router>
 )

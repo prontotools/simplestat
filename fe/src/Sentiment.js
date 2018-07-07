@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import { path } from 'ramda'
 
 class Sentiment extends React.Component {
   state = {
@@ -8,33 +9,43 @@ class Sentiment extends React.Component {
 
   async componentDidMount() {
     try {
-      const res = await axios.get('http://localhost:5000/')
+      const res = await axios.get('http://localhost:5000')
       const data = await res.data
-      console.log(data)
       this.setState({ data })
     } catch (e) {
       console.error('Something went wrong', e)
     }
   }
 
+  isPositive = d => +path(['sentiment', 'pos'], d) >= +path(['sentiment', 'neg'], d)
+
   render() {
     return (
-      <div class="ui segments">
-        <div class="ui segment">
-          <h3 class="ui header">😂 Sentiment</h3>
+      <div className="ui segments">
+        <div className="ui segment">
+          <h3 className="ui header">😂 Sentiment</h3>
         </div>
-        <div class="ui segment">
-          <div class="ui items">
-            <div class="item">
-              <div class="ui tiny rounded image">
-              </div>
-              <div class="content">
-                <a class="header" href="#">New App here!</a>
-                <div class="meta">
-                  <span class="cinema">Irure ex aute dolor minim sit. Enim eiusmod cillum incididunt fugiat</span>
+        <div className="ui segment">
+          <div className="ui items">
+
+            {this.state.data.slice(5, 15).map(d => (
+              <div className="item">
+                <div className="ui tiny rounded image" style={{
+                  color: this.isPositive(d) ? '#2ecc71' : '#e74c3c'
+                }}>
+                  { this.isPositive(d) ? 'POSITIVE' : 'NEGATIVE' }
+                </div>
+                <div className="content">
+                  <a className="header" href={d.url} style={{
+                    color: this.isPositive(d) ? '#2ecc71' : '#e74c3c'
+                  }}>{d.title}</a>
+                  <div className="meta">
+                    <span className="cinema"></span>
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
+
           </div>
         </div>
       </div>
