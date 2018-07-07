@@ -5,7 +5,9 @@ from flask_cors import CORS
 
 import facebook
 from pythainlp.sentiment import sentiment
+from toolz import get_in
 
+from search import search_thread, index_thread
 
 FACEBOOK_GROUP_ID = '635133846845099'
 FACEBOOK_USER_ACCESS_TOKEN = os.getenv('FACEBOOK_USER_ACCESS_TOKEN')
@@ -140,6 +142,19 @@ def wordcloud():
         words.append(d)
 
     return jsonify(words)
+
+
+@app.route('/search/<string:keyword>', methods=['GET'])
+def text_search(keyword):
+    results = get_in(['hits', 'hits'], search_thread(keyword))
+
+    return jsonify(results)
+
+
+@app.route('/update-index/', methods=['GET'])
+def update_index():
+    index_thread()
+    return jsonify({'detail': 'Update search index complete.'})
 
 
 @app.route('/full/')

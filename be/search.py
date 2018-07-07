@@ -2,8 +2,7 @@ import os
 
 import facebook
 from elasticsearch import Elasticsearch
-
-from main import get_sentiment
+from pythainlp.sentiment import sentiment
 
 
 es = Elasticsearch()
@@ -11,6 +10,33 @@ es = Elasticsearch()
 FACEBOOK_GROUP_ID = '635133846845099'
 FACEBOOK_USER_ACCESS_TOKEN = os.getenv('FACEBOOK_USER_ACCESS_TOKEN')
 SINCE = '2018-07-04'
+
+
+def get_sentiment(data):
+    sentiment_results = {
+        'pos': 0,
+        'neg': 0,
+    }
+    title = data.get('title')
+    if title:
+        if sentiment(title) == 'pos':
+            sentiment_results['pos'] += 1
+        else:
+            sentiment_results['neg'] += 1
+    comments = data.get('comments')
+    if comments:
+        for comment in comments:
+            if sentiment(comment.get('message')) == 'pos':
+                sentiment_results['pos'] += 1
+            else:
+                sentiment_results['neg'] += 1
+
+    total = sentiment_results['pos'] + sentiment_results['neg']
+    if total:
+        sentiment_results['pos'] /= total
+        sentiment_results['neg'] /= total
+
+    return sentiment_results
 
 
 def index_thread():
