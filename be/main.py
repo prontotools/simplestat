@@ -91,9 +91,9 @@ def index():
                                 }
                             )
 
-        post['sentiment'] = get_sentiment(post)
+            post['sentiment'] = get_sentiment(post)
 
-        results.append(post)
+            results.append(post)
 
     return jsonify(results)
 
