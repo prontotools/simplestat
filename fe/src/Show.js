@@ -82,6 +82,12 @@ class Show extends Component{
                     searchResult: res.data
                 })
             }
+          ).catch(
+            e => {
+                this.setState({
+                    searchResult: []
+                })
+            }
           )
         }
     }
