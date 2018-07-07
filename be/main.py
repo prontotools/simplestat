@@ -49,6 +49,10 @@ def get_sentiment(data):
 
 @app.route('/')
 def index():
+    graph = facebook.GraphAPI(
+        access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        version='2.7'
+    )
     query_string = f'fields=feed.since({SINCE})' \
         '{comments{comments{message,created_time,like_count},' \
         'message,created_time,like_count,reactions},' \
