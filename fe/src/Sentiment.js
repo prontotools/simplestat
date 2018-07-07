@@ -28,16 +28,16 @@ class Sentiment extends React.Component {
         <div className="ui segment">
           <div className="ui items">
 
-            {this.state.data.slice(1, 20).map(d => (
+            {this.state.data.slice(5, 15).map(d => (
               <div className="item">
                 <div className="ui tiny rounded image" style={{
-                  color: this.isPositive() ? '#2ecc71' : '#e74c3c'
+                  color: this.isPositive(d) ? '#2ecc71' : '#e74c3c'
                 }}>
-                  { this.isPositive() ? 'POSITIVE' : 'NEGATIVE' }
+                  { this.isPositive(d) ? 'POSITIVE' : 'NEGATIVE' }
                 </div>
                 <div className="content">
-                  <a className="header" href="#" style={{
-                    color: this.isPositive() ? '#2ecc71' : '#e74c3c'
+                  <a className="header" href={d.url} style={{
+                    color: this.isPositive(d) ? '#2ecc71' : '#e74c3c'
                   }}>{d.title}</a>
                   <div className="meta">
                     <span className="cinema"></span>
