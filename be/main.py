@@ -1,3 +1,4 @@
+from datetime import date, timedelta
 import os
 
 from flask import Flask, jsonify
@@ -140,6 +141,66 @@ def wordcloud():
         words.append(d)
 
     return jsonify(words)
+
+
+@app.route('/activities/')
+def activities():
+    query_string = f'fields=feed.since({SINCE})' \
+        '{comments{comments{message,created_time,like_count},' \
+        'message,created_time,like_count,reactions},' \
+        'message,created_time,updated_time,reactions}'
+    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+    feed = graph.request(endpoint_url).get('feed')
+
+    post_activities = {}
+    for i in range(8):
+        days = 7 - i
+        current_date = date.today() - timedelta(days=days)
+        post_activities[current_date.strftime('%Y-%m-%d')] = 0
+
+    for each in feed.get('data'):
+        created_date = each.get('created_time').split('T')[0]
+        post_activities[created_date] += 1
+
+    comment_activities = {}
+    for i in range(8):
+        days = 7 - i
+        current_date = date.today() - timedelta(days=days)
+        comment_activities[current_date.strftime('%Y-%m-%d')] = 0
+
+    for each in feed.get('data'):
+        message = each.get('message')
+        if message:
+            comments = each.get('comments')
+            if comments:
+                for comment in comments.get('data'):
+                    created_date = each.get('created_time').split('T')[0]
+                    comment_activities[created_date] += 1
+
+                    comments_in_comment = comment.get('comments')
+                    if comments_in_comment:
+                        created_date = each.get('created_time').split('T')[0]
+                        comment_activities[created_date] += 1
+
+    results = {
+        'posts': {
+            'label': [],
+            'data': [],
+        },
+        'comments': {
+            'label': [],
+            'data': [],
+        },
+    }
+    for each in post_activities:
+        results['posts']['label'].append(each)
+        results['posts']['data'].append(post_activities[each])
+
+    for each in comment_activities:
+        results['comments']['label'].append(each)
+        results['comments']['data'].append(comment_activities[each])
+
+    return jsonify(results)
 
 
 @app.route('/full/')
