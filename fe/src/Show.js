@@ -1,5 +1,5 @@
-
 import React, { Component } from 'react';
+import Sentiment from './Sentiment';
 import WordCloud from './WordCloud';
 
 export const Navbar = () => (
@@ -149,19 +149,7 @@ class Show extends Component{
                                   </div>
 
                                     {/* DRAMA */}
-                                    <div class="ui segments">
-                                        <div class="ui segment">
-                                            <h3 class="ui header">😂 Drama Alert</h3>
-                                        </div>
-                                        <div class="segment">
-                                            <div class="ui items">
-                                                <div class="item">
-                                                    <div class="content">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <Sentiment />
 
                                     {/* Activity Stat */}
                                     <div class="ui segments">
@@ -181,7 +169,7 @@ class Show extends Component{
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="column">
                                     <div class="six wide column">
 
@@ -341,11 +329,11 @@ class Show extends Component{
                                     </div>
                                 </div>
 
-                                
+
                             </div>
                         </div>
 
-                    
+
 
                         <div class="two wide column">
                             <img />
