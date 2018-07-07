@@ -8,6 +8,8 @@ import {
 } from 'react-router-dom'
 
 import WordCloud from './WordCloud'
+import BarChart from './BarChart'
+import Show from './Show'
 
 const Routes = () => (
   <Router>
@@ -15,6 +17,8 @@ const Routes = () => (
       <Route exact path='/' component={App} />
       <Route path='/main' component={App} />
       <Route path='/wordcloud' component={WordCloud} />
+      <Route path='/barchart' component={BarChart} />
+      <Route path='/show' component={Show} />
     </React.Fragment>
   </Router>
 )

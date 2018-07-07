@@ -3,6 +3,9 @@ import os
 import facebook
 from elasticsearch import Elasticsearch
 
+from main import get_sentiment
+
+
 es = Elasticsearch()
 
 FACEBOOK_GROUP_ID = '635133846845099'
@@ -13,7 +16,16 @@ SINCE = '2018-07-04'
 def index_thread():
     posts = get_all_post_in_group()
     id = 0
+
     for post in posts:
+        comment_text = ''
+        if post['comments']:
+            for comment in post['comments']:
+                comment_text += f" {comment['message']}"
+
+        del post['comments']
+        post['text'] = f"{post['title']} {comment_text}"
+
         id += 1
         es.index(index='posts', doc_type='post', id=id, body=post)
 
@@ -25,8 +37,8 @@ def get_thread(id=1):
 def search_thread(keyword=''):
     search_query = {
         'query': {
-            'match': {
-                'title': keyword
+            'match_phrase': {
+                'text': keyword
             },
         }
     }
@@ -52,18 +64,36 @@ def get_all_post_in_group():
         message = each.get('message')
         if message:
             post['title'] = message
+            post['created_time'] = each.get('created_time')
+            post['update_time'] = each.get('updated_time')
+            post_id = each.get('id').split('_')[1]
+            url = f'https://www.facebook.com/groups/{FACEBOOK_GROUP_ID}/permalink/{post_id}/'
+            post['url'] = url
             post['comments'] = []
             comments = each.get('comments')
             if comments:
                 for comment in comments.get('data'):
-                    comment_message = comment.get('message')
-                    post['comments'].append(comment_message)
+                    post['comments'].append(
+                        {
+                            'message': comment.get('message'),
+                            'created_time': comment.get('created_time'),
+                            'like_count': comment.get('like_count'),
+                        }
+                    )
 
                     comments_in_comment = comment.get('comments')
                     if comments_in_comment:
                         for comment_in_comment in comments_in_comment.get('data'):
-                            post['comments'].append(comment_in_comment.get('message'))
+                            post['comments'].append(
+                                {
+                                    'message': comment_in_comment.get('message'),
+                                    'created_time': comment_in_comment.get('created_time'),
+                                    'like_count': comment_in_comment.get('like_count'),
+                                }
+                            )
 
-        results.append(post)
+            post['sentiment'] = get_sentiment(post)
+
+            results.append(post)
 
     return results
