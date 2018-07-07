@@ -160,7 +160,7 @@ class Show extends Component{
 
                     <div class="ui segments">
                       <div class="ui segment">
-                        <h3 class="ui header">📊 Activity Stats</h3>
+                        <h3 class="ui header">📊 Activity Stats in Last 7 Days</h3>
                       </div>
                       <div class="ui segment">
                         <Activities/>
@@ -206,111 +206,108 @@ class Show extends Component{
                     </div>
                   </div>
 
-                                        <div class="ui segments">
-                                            <div class="ui segment">
-                                                <h3 class="ui header">📆 Related Events</h3>
-                                            </div>
-                                            <div class="segment">
-                                                <div class="ui items">
-                                                    <div class="item">
-                                                        <div class="content">
-                                                                <div class="ui segment">
-                                                                        <div class="ui middle aligned relaxed list">
-                                                                            <div class="item">
-                                                                                <div class="right floated content">
-                                                                                    <a class="ui red basic button">Just Now</a>
-                                                                                </div>
-                                                                                <i class="icon large circular red">S.</i>
-                                                                                <div class="content">
-                                                                                    You have 4 pending tasks.
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="item">
-                                                                                <div class="right floated content">
-                                                                                    <a class="ui teal basic button">2 Hours ago</a>
-                                                                                </div>
-                                                                                <i class="icon large circular teal">Th.</i>
-                                                                                <div class="content">
-                                                                                    New SimpleStat
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="item">
-                                                                                <div class="right floated content">
-                                                                                    <a class="ui blue basic button">31 May</a>
-                                                                                </div>
-                                                                                <i class="icon large circular blue">W.</i>
-                                                                                <div class="content">
-                                                                                    Best App ever
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="item">
-                                                                                <div class="right floated content">
-                                                                                    <a class="ui purple basic button">30 May</a>
-                                                                                </div>
-                                                                                <i class="icon large circular purple">M</i>
-                                                                                <div class="content">
-                                                                                    New user registered.
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="item">
-                                                                                <div class="right floated content">
-                                                                                    <a class="ui brown basic button">27 May</a>
-                                                                                </div>
-                                                                                <i class="icon large circular brown">T</i>
-                                                                                <div class="content">
-                                                                                    New Version just arrived.
-                                                                                </div>
-                                                                            </div>
-                                                                            </div>
-                                                                        </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="ui segments">
-                                            <div class="ui segment">
-                                                <h3 class="ui header">👑 Top User</h3>
-                                            </div>
-                                            <div class="ui segment">
-                                                <div class="ui very relaxed list">
-                                                    <div class="item">
-                                                        <img class="ui tiny circular image" src="https://avatars0.githubusercontent.com/u/704794?s=460&v=4"/>
-                                                        <div class="content">
-                                                            <div class="header">
-                                                                Kristine Golgi
-                                                                <div class="ui heart rating" data-rating="2"><i class="icon active"></i><i class="icon active"></i><i class="icon"></i><i class="icon"></i></div>
-                                                            </div>
-                                                            User Rating
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <img class="ui tiny circular image" src="https://avatars3.githubusercontent.com/u/19608954?s=460&v=4"/>
-                                                        <div class="content">
-                                                            <div class="header">
-                                                                Danny Golgi
-                                                                <div class="ui heart rating" data-rating="2"><i class="icon active"></i><i class="icon active"></i><i class="icon"></i><i class="icon"></i></div>
-                                                            </div>
-                                                            User Rating
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </div>
-
-                        <div class="two wide column">
-                            <img />
-                        </div>
+                  <div class="ui segments">
+                    <div class="ui segment">
+                      <h3 class="ui header">📆 Related Events</h3>
                     </div>
+                    <div class="segment">
+                      <div class="ui items">
+                        <div class="item">
+                          <div class="content">
+                            <div class="ui segment">
+                              <div class="ui middle aligned relaxed list">
+                                <div class="item">
+                                  <div class="right floated content">
+                                    <a class="ui red basic button">Just Now</a>
+                                  </div>
+                                  <i class="icon large circular red">S.</i>
+                                  <div class="content">
+                                    You have 4 pending tasks.
+                                  </div>
+                                </div>
+                                <div class="item">
+                                  <div class="right floated content">
+                                    <a class="ui teal basic button">2 Hours ago</a>
+                                  </div>
+                                  <i class="icon large circular teal">Th.</i>
+                                  <div class="content">
+                                    New SimpleStat
+                                  </div>
+                                </div>
+                                <div class="item">
+                                  <div class="right floated content">
+                                    <a class="ui blue basic button">31 May</a>
+                                  </div>
+                                  <i class="icon large circular blue">W.</i>
+                                  <div class="content">
+                                    Best App ever
+                                </div>
+                              </div>
+                              <div class="item">
+                                <div class="right floated content">
+                                  <a class="ui purple basic button">30 May</a>
+                                </div>
+                                <i class="icon large circular purple">M</i>
+                                <div class="content">
+                                  New user registered.
+                                </div>
+                              </div>
+                              <div class="item">
+                                <div class="right floated content">
+                                  <a class="ui brown basic button">27 May</a>
+                                </div>
+                                <i class="icon large circular brown">T</i>
+                                <div class="content">
+                                  New Version just arrived.
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-      </React.Fragment>
+                <div class="ui segments">
+                  <div class="ui segment">
+                    <h3 class="ui header">👑 Top Users</h3>
+                  </div>
+                  <div class="ui segment">
+                    <div class="ui very relaxed list">
+                      <div class="item">
+                        <img class="ui tiny circular image" src="https://avatars0.githubusercontent.com/u/704794?s=460&v=4"/>
+                        <div class="content">
+                          <div class="header">
+                            Kristine Golgi
+                          <div class="ui heart rating" data-rating="2"><i class="icon active"></i><i class="icon active"></i><i class="icon"></i><i class="icon"></i></div>
+                        </div>
+                        User Rating
+                      </div>
+                    </div>
+                    <div class="item">
+                      <img class="ui tiny circular image" src="https://avatars3.githubusercontent.com/u/19608954?s=460&v=4"/>
+                      <div class="content">
+                        <div class="header">
+                          Danny Golgi
+                        <div class="ui heart rating" data-rating="2"><i class="icon active"></i><i class="icon active"></i><i class="icon"></i><i class="icon"></i></div>
+                      </div>
+                      User Rating
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="two wide column">
+      <img />
+    </div>
+  </div>
+</div>
+</React.Fragment>
     )
   }
 }

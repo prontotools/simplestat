@@ -27,7 +27,7 @@ class Activities extends React.Component {
       const postData = {
         labels: path(['posts', 'label'], data),
         datasets: [{
-          label: 'จำนวน Post',
+          label: '# โพสต์',
           backgroundColor: 'rgb(52,152,219)',
           borderColor: 'rgb(52,152,300)',
           borderWidth: 1,
@@ -38,9 +38,9 @@ class Activities extends React.Component {
       }
 
       const commentData = {
-        labels: path(['posts', 'label'], data),
+        labels: path(['comments', 'label'], data),
         datasets: [{
-          label: 'จำนวน Post',
+          label: '# คอมเมนต์',
           backgroundColor: 'rgb(52,152,219)',
           borderColor: 'rgb(52,152,300)',
           borderWidth: 1,
@@ -60,10 +60,8 @@ class Activities extends React.Component {
     return (
       <React.Fragment>
         <div style={{ background: 'white', width: '500px' }}>
-          <h1>Posts/week</h1>
           <Bar data={this.state.postData} width="500" height="250"/>
           <br />
-          <h1>Comments/week</h1>
           <Bar data={this.state.commentData} width="500" height="250"/>
         </div>
       </React.Fragment>
