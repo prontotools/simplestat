@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import styled from 'styled-components'
 import axios from 'axios'
 import FacebookLogin from 'react-facebook-login';
+import {
+  Redirect
+} from 'react-router-dom'
 
 const ParagraphStyle = styled.p`
   font-family: Montserrat,sans-serif;
@@ -25,7 +28,8 @@ class App extends Component {
     userID: '',
   }
 
-  responseFacebook = (user) => this.setState({
+  responseFacebook = (user) => {
+    this.setState({
     isLogin: true,
     accessToken: user.accessToken,
     email: user.email,
@@ -35,6 +39,7 @@ class App extends Component {
     picture: user.picture.data.url,
     userID: user.userID,
   })
+}
 
   logOut = () => {
     localStorage.clear()
@@ -45,18 +50,12 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div class="musthead_center_full">
         <div className="ui inverted vertical masthead center aligned segment">
           <div className="ui text container">
             <center>
               { this.state.isLogin ?
-                <React.Fragment>
-                  <img src={this.state.picture} alt='profilelogo' />
-                  <ParagraphStyle>{this.state.name}</ParagraphStyle>
-                  <button onClick={this.logOut} class="ui huge facebook button">
-                    <i class="facebook icon" />Bye Bye
-                  </button>
-                </React.Fragment>
+                  <Redirect to='/show'/>
                 :
                 <React.Fragment>
                   <h1 className="ui inverted">
