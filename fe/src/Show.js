@@ -36,6 +36,31 @@ export const GridSection = () => (
 )
 
 class Show extends Component{
+
+    state = {
+        hotTopic: [{
+            name: 'Data engine5',
+            author: 'mark',
+            score: 5,
+        },{
+            name: 'Data engine20',
+            author: 'mark',
+            score: 20,
+        },{
+            name: 'Data engine6',
+            author: 'mark',
+            score: 6,
+        },{
+            name: 'Data engine4',
+            author: 'mark',
+            score: 4,
+        },{
+            name: 'Data engine2',
+            author: 'mark',
+            score: 2,
+        }]
+    }
+
     componentWillMount = () => {
         document.body.style.backgroundColor = "#eaf2f7";
         document.body.style.padding = '0px';
@@ -118,6 +143,7 @@ class Show extends Component{
 
                                             <div class="ui segment">
                                                 <div class="ui items">
+                                                    { this.state.hotTopic.map(post => <h1>{post.name}</h1>) }
                                                     <div class="item">
                                                         <div class="ui tiny rounded image">
                                                         </div>
