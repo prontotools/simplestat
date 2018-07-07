@@ -43,6 +43,8 @@ export const GridSection = () => (
 class Show extends Component{
 
     state = {
+        searchKeyword: '',
+        searchResult: [],
         posts: [{
             "comments": [
                 {
