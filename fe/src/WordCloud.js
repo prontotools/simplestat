@@ -9,17 +9,8 @@ class WordCloud extends React.Component {
 
   async componentDidMount() {
     try {
-      const res = await axios.get('http://localhost:5000/')
-      const data = await res.data
-      console.log('[WordCloud] data', data)
-      // Need to change here to not hardcoded
-      const words = [
-        {word: 'สวัสดี', value: 3},
-        {word: 'โลก', value: 2},
-        {word: 'github', value: 2},
-        {word: 'code', value: 1},
-      ]
-
+      const res = await axios.get('http://localhost:5000/wordcloud')
+      const words = await res.data
       this.setState({ words })
     } catch (e) {
       console.error('Something went wrong', e)
