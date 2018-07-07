@@ -12,11 +12,8 @@ export const Navbar = () => (
             <a class="item labeled openbtn">
                 <i class="ion-navicon-round big icon"></i>
             </a>
-            <div class="ui item" tabindex="0">
-                <img class="ui mini image" src="simstatlogo.png" alt="logo" />
-            </div>
-            <div class="ui item">
-                    <h2 style={{color: '#3b5998'}}>SimpleStat</h2>
+            <div class="ui item" >
+                <img class="ui small image" src="simstatlogo.png" alt="logo" />
             </div>
             <div class="right menu colhidden">
                 <div class="ui item">
