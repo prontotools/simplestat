@@ -83,14 +83,70 @@ class Show extends Component{
                             <div class="ui stackable two column grid">
                                 <div class="column">
 
-                                    {/* SEARCH */}
-                                    <h2>Search something</h2>
-                                    <div class="ui search">
-                                        <div class="ui huge icon input">
-                                            <input class="prompt" type="text" placeholder="Search..." />
-                                            <i class="search icon"></i>
+                                {/* SEARCH */}
+                                  <div class="ui segments">
+                                    <div class="ui segment">
+                                      <div class="ui search">
+                                        <div class="ui large icon input">
+                                          <input class="prompt" type="text" placeholder="What's on your mind ?" />
+                                          <i class="search icon" />
                                         </div>
+                                      </div>
                                     </div>
+
+                                    <div class="ui segment">
+                                      <div class="ui items">
+                                        <div class="item">
+                                          <div class="ui tiny rounded image">
+                                          </div>
+                                          <div class="content">
+                                            <a class="header" href="#">New App here!</a>
+                                            <div class="meta">
+                                              <span class="cinema">Irure ex aute dolor minim sit. Enim eiusmod cillum incididunt fugiat</span>
+                                            </div>
+                                            <div class="description">
+                                              <p></p>
+                                            </div>
+                                            <div class="extra">
+                                              <button class="ui greenli inverted tiny button follow">Follow</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="item">
+                                          <div class="ui rounded tiny image">
+                                          </div>
+                                          <div class="content">
+                                            <a class="header">Ashley Ross</a>
+                                            <div class="meta">
+                                              <span class="cinema">Ea nostrud adipisicing ut et sint culpa et ut esse minim Lorem ex voluptate ex</span>
+                                            </div>
+                                            <div class="description">
+                                              <p></p>
+                                            </div>
+                                            <div class="extra">
+                                              <button class="ui greenli inverted tiny button follow">Follow</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="item">
+                                          <div class="ui rounded tiny image">
+                                          </div>
+                                          <div class="content">
+                                            <a class="header">Trina Marquez</a>
+                                            <div class="meta">
+                                              <span class="cinema">Excepteur ut elit dolor officia consequat do duis cillum culpa pariatur</span>
+                                            </div>
+                                            <div class="description">
+                                              <p></p>
+                                            </div>
+                                            <div class="extra">
+                                              <button class="ui greenli inverted tiny button follow">Follow</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
 
                                     {/* DRAMA */}
                                     <div class="ui segments">
@@ -128,15 +184,6 @@ class Show extends Component{
                                 
                                 <div class="column">
                                     <div class="six wide column">
-
-                                        <div class="ui huge horizontal statistic">
-                                            <div class="value">
-                                                2,204
-                                            </div>
-                                            <div class="label">
-                                                Views
-                                            </div>
-                                        </div>
 
                                         <div class="ui segments">
                                             <div class="ui segment">
