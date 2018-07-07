@@ -49,16 +49,20 @@ def get_sentiment(data):
 
 @app.route('/')
 def index():
-    graph = facebook.GraphAPI(
-        access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        version='2.7'
-    )
-    query_string = f'fields=feed.since({SINCE})' \
-        '{comments{comments{message,created_time,like_count},' \
-        'message,created_time,like_count,reactions},' \
-        'message,created_time,updated_time,reactions}'
-    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    feed = graph.request(endpoint_url).get('feed')
+    # graph = facebook.GraphAPI(
+        # access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        # version='2.7'
+    # )
+    # query_string = f'fields=feed.since({SINCE})' \
+        # '{comments{comments{message,created_time,like_count},' \
+        # 'message,created_time,like_count,reactions},' \
+        # 'message,created_time,updated_time,reactions}'
+    # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+    # feed = graph.request(endpoint_url).get('feed')
+
+    import json
+    with open('simplestat.json') as f:
+        return jsonify(json.load(f))
 
     results = []
     for each in feed.get('data'):
