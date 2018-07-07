@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+import json
 import os
 
 from flask import Flask, jsonify
@@ -60,8 +61,7 @@ def index():
     # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
     # feed = graph.request(endpoint_url).get('feed')
 
-    import json
-    with open('simplestat.json') as f:
+    with open('index.json') as f:
         return jsonify(json.load(f))
 
     results = []
@@ -107,17 +107,20 @@ def index():
 
 @app.route('/wordcloud/')
 def wordcloud():
-    graph = facebook.GraphAPI(
-        access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        version='2.7'
-    )
+    # graph = facebook.GraphAPI(
+        # access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        # version='2.7'
+    # )
 
-    query_string = f'fields=feed.since({SINCE})' \
-        '{comments{comments{message,created_time,like_count},' \
-        'message,created_time,like_count,reactions},' \
-        'message,created_time,updated_time,reactions}'
-    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    feed = graph.request(endpoint_url).get('feed')
+    # query_string = f'fields=feed.since({SINCE})' \
+        # '{comments{comments{message,created_time,like_count},' \
+        # 'message,created_time,like_count,reactions},' \
+        # 'message,created_time,updated_time,reactions}'
+    # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+    # feed = graph.request(endpoint_url).get('feed')
+
+    with open('wordcloud.json') as f:
+        return jsonify(json.load(f))
 
     text = ''
     for each in feed.get('data'):
@@ -156,17 +159,20 @@ def wordcloud():
 
 @app.route('/activities/')
 def activities():
-    graph = facebook.GraphAPI(
-        access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        version='2.7'
-    )
+    # graph = facebook.GraphAPI(
+        # access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        # version='2.7'
+    # )
 
-    query_string = f'fields=feed.since({SINCE})' \
-        '{comments{comments{message,created_time,like_count},' \
-        'message,created_time,like_count,reactions},' \
-        'message,created_time,updated_time,reactions}'
-    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    feed = graph.request(endpoint_url).get('feed')
+    # query_string = f'fields=feed.since({SINCE})' \
+        # '{comments{comments{message,created_time,like_count},' \
+        # 'message,created_time,like_count,reactions},' \
+        # 'message,created_time,updated_time,reactions}'
+    # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+    # feed = graph.request(endpoint_url).get('feed')
+
+    with open('activities.json') as f:
+        return jsonify(json.load(f))
 
     post_activities = {}
     for i in range(8):
