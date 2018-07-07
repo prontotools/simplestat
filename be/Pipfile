@@ -14,6 +14,7 @@ facebook-sdk = "*"
 python-dotenv = "*"
 ipdb = "*"
 elasticsearch = "<3.0.0"
+toolz = "*"
 
 
 [dev-packages]
