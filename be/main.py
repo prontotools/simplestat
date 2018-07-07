@@ -44,13 +44,24 @@ def index():
             comments = each.get('comments')
             if comments:
                 for comment in comments.get('data'):
-                    comment_message = comment.get('message')
-                    post['comments'].append(comment_message)
+                    post['comments'].append(
+                        {
+                            'message': comment.get('message'),
+                            'created_time': comment.get('created_time'),
+                            'like_count': comment.get('like_count'),
+                        }
+                    )
 
                     comments_in_comment = comment.get('comments')
                     if comments_in_comment:
                         for comment_in_comment in comments_in_comment.get('data'):
-                            post['comments'].append(comment_in_comment.get('message'))
+                            post['comments'].append(
+                                {
+                                    'message': comment_in_comment.get('message'),
+                                    'created_time': comment_in_comment.get('created_time'),
+                                    'like_count': comment_in_comment.get('like_count'),
+                                }
+                            )
 
         results.append(post)
 
