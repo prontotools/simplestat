@@ -66,7 +66,7 @@ class App extends Component {
                   </h1>
                   <ParagraphStyle>SimpleStat for Community Managers.</ParagraphStyle>
                   <FacebookLogin
-                    appId="264925624091528"
+                    appId="241736476629658"
                     autoLoad={true}
                     fields="name, email, picture"
                     callback={this.responseFacebook}
