@@ -45,33 +45,7 @@ class Show extends Component{
     state = {
         searchKeyword: '',
         searchResult: [],
-        posts: [{
-            "comments": [
-                {
-                    "created_time": "2018-07-07T06:59:18+0000",
-                    "like_count": 0,
-                    "message": "555555"
-                },
-                {
-                    "created_time": "2018-07-07T07:24:34+0000",
-                    "like_count": 0,
-                    "message": ""
-                },
-                {
-                    "created_time": "2018-07-07T07:25:40+0000",
-                    "like_count": 0,
-                    "message": "https://gist.github.com/rxaviers/7360908"
-                }
-            ],
-            "created_time": "2018-07-07T06:59:05+0000",
-            "sentiment": {
-                "neg": 1,
-                "pos": 0
-            },
-            "title": "ไฟลุกกก",
-            "update_time": "2018-07-07T07:25:43+0000",
-            "url": "https://www.facebook.com/groups/635133846845099/permalink/637369686621515/"
-        }]
+        posts: []
     }
 
     handleOnSearchChange = e => {
@@ -96,6 +70,22 @@ class Show extends Component{
             }
           )
         }
+    }
+
+    componentDidMount = () => {
+      axios.get('http://localhost:5000/hot-topic/').then(
+        res => {
+          this.setState({
+            posts: res.data
+          })
+        }
+      ).catch(
+        () => {
+          this.setState({
+            posts: []
+          })
+        }
+      )
     }
 
     componentWillMount = () => {
@@ -192,22 +182,13 @@ class Show extends Component{
 
                                             <div class="ui segment">
                                                 <div class="ui items">
-                                                    { this.state.posts.slice(0, 3).map(post => 
+                                                    { this.state.posts.map(post =>
                                                         <div class="item">
                                                             <div class="ui tiny rounded image">
+                                                              <a className='header' href={post.url}>{post.fire}</a>
                                                             </div>
                                                             <div class="content">
-                                                                <a class="header" href="#">{post.title}</a>
-                                                                <div class="meta">
-                                                                <span class="cinema"><a href={post.url}>this link</a>
-                                                                </span>
-                                                                </div>
-                                                                <div class="description">
-                                                                    <p></p>
-                                                                </div>
-                                                                <div class="extra">
-                                                                    <button class="ui greenli inverted tiny button follow">Follow</button>
-                                                                </div>
+                                                                <a class="header" href={post.url}>{post.title}</a>
                                                             </div>
                                                         </div>
                                                     ) }

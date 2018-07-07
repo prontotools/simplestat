@@ -188,6 +188,9 @@ def hot_topic():
         })
 
     new_data.sort(key=lambda post: post['hot_score'], reverse=True)
+    new_data[0]['fire'] = '🔥🔥🔥'
+    new_data[1]['fire'] = '🔥🔥'
+    new_data[2]['fire'] = '🔥'
 
     return jsonify(new_data[:3])
 
