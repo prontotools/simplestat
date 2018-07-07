@@ -3,14 +3,15 @@ import axios from 'axios'
 
 class Sentiment extends React.Component {
   state = {
-    words: []
+    data: []
   }
 
   async componentDidMount() {
     try {
-      const res = await axios.get('http://localhost:5000/wordcloud')
-      const words = await res.data
-      this.setState({ words })
+      const res = await axios.get('http://localhost:5000/')
+      const data = await res.data
+      console.log(data)
+      this.setState({ data })
     } catch (e) {
       console.error('Something went wrong', e)
     }
