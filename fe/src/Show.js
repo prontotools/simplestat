@@ -43,28 +43,32 @@ export const GridSection = () => (
 class Show extends Component{
 
     state = {
-        searchKeyword: '',
-        searchResult: [],
-        hotTopic: [{
-            name: 'Data engine5',
-            author: 'mark',
-            score: 5,
-        },{
-            name: 'Data engine20',
-            author: 'mark',
-            score: 20,
-        },{
-            name: 'Data engine6',
-            author: 'mark',
-            score: 6,
-        },{
-            name: 'Data engine4',
-            author: 'mark',
-            score: 4,
-        },{
-            name: 'Data engine2',
-            author: 'mark',
-            score: 2,
+        posts: [{
+            "comments": [
+                {
+                    "created_time": "2018-07-07T06:59:18+0000",
+                    "like_count": 0,
+                    "message": "555555"
+                },
+                {
+                    "created_time": "2018-07-07T07:24:34+0000",
+                    "like_count": 0,
+                    "message": ""
+                },
+                {
+                    "created_time": "2018-07-07T07:25:40+0000",
+                    "like_count": 0,
+                    "message": "https://gist.github.com/rxaviers/7360908"
+                }
+            ],
+            "created_time": "2018-07-07T06:59:05+0000",
+            "sentiment": {
+                "neg": 1,
+                "pos": 0
+            },
+            "title": "ไฟลุกกก",
+            "update_time": "2018-07-07T07:25:43+0000",
+            "url": "https://www.facebook.com/groups/635133846845099/permalink/637369686621515/"
         }]
     }
 
@@ -96,9 +100,10 @@ class Show extends Component{
         document.body.style.backgroundColor = "#eaf2f7";
         document.body.style.padding = '0px';
         document.body.style.margin = '0px';
-    }
+    } 
 
     render(){
+        console.log(this.state.posts)
         return(
             <React.Fragment>
                 <Navbar />
@@ -185,55 +190,25 @@ class Show extends Component{
 
                                             <div class="ui segment">
                                                 <div class="ui items">
-                                                    { this.state.hotTopic.map(post => <h1>{post.name}</h1>) }
-                                                    <div class="item">
-                                                        <div class="ui tiny rounded image">
-                                                        </div>
-                                                        <div class="content">
-                                                            <a class="header" href="#">New App here!</a>
-                                                            <div class="meta">
-                                                                <span class="cinema">Irure ex aute dolor minim sit. Enim eiusmod cillum incididunt fugiat</span>
+                                                    { this.state.posts.slice(0, 3).map(post => 
+                                                        <div class="item">
+                                                            <div class="ui tiny rounded image">
                                                             </div>
-                                                            <div class="description">
-                                                                <p></p>
-                                                            </div>
-                                                            <div class="extra">
-                                                                <button class="ui greenli inverted tiny button follow">Follow</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="ui rounded tiny image">
-                                                        </div>
-                                                        <div class="content">
-                                                            <a class="header">Ashley Ross</a>
-                                                            <div class="meta">
-                                                                <span class="cinema">Ea nostrud adipisicing ut et sint culpa et ut esse minim Lorem ex voluptate ex</span>
-                                                            </div>
-                                                            <div class="description">
-                                                                <p></p>
-                                                            </div>
-                                                            <div class="extra">
-                                                                <button class="ui greenli inverted tiny button follow">Follow</button>
+                                                            <div class="content">
+                                                                <a class="header" href="#">{post.title}</a>
+                                                                <div class="meta">
+                                                                <span class="cinema"><a href={post.url}>this link</a>
+                                                                </span>
+                                                                </div>
+                                                                <div class="description">
+                                                                    <p></p>
+                                                                </div>
+                                                                <div class="extra">
+                                                                    <button class="ui greenli inverted tiny button follow">Follow</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="item">
-                                                        <div class="ui rounded tiny image">
-                                                        </div>
-                                                        <div class="content">
-                                                        <a class="header">Trina Marquez</a>
-                                                        <div class="meta">
-                                                            <span class="cinema">Excepteur ut elit dolor officia consequat do duis cillum culpa pariatur</span>
-                                                        </div>
-                                                        <div class="description">
-                                                            <p></p>
-                                                        </div>
-                                                        <div class="extra">
-                                                            <button class="ui greenli inverted tiny button follow">Follow</button>
-                                                        </div>
-                                                        </div>
-                                                    </div>
+                                                    ) }
                                                 </div>
                                             </div>
                                         </div>
