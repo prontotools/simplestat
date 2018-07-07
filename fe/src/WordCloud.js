@@ -19,7 +19,7 @@ class WordCloud extends React.Component {
 
   render() {
     return (
-      <div style={{width: 600, height: 400, border: '1px solid white'}}>
+      <div style={{width: 500, height: 400, border: '1px solid white'}}>
         <ReactWordCloud
           words={this.state.words}
           wordCountKey='value'
