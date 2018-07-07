@@ -14,14 +14,14 @@ app = Flask(__name__)
 
 CORS(app)
 
+graph = facebook.GraphAPI(
+    access_token=FACEBOOK_USER_ACCESS_TOKEN,
+    version='2.7'
+)
+
 
 @app.route('/')
 def index():
-    graph = facebook.GraphAPI(
-        access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        version='2.7'
-    )
-
     query_string = f'fields=feed.since({SINCE})' \
         '{comments{comments{message,created_time,like_count},' \
         'message,created_time,like_count,reactions},' \
@@ -35,17 +35,33 @@ def index():
         message = each.get('message')
         if message:
             post['title'] = message
+            post['created_time'] = each.get('created_time')
+            post['update_time'] = each.get('updated_time')
+            post_id = each.get('id').split('_')[1]
+            url = f'https://www.facebook.com/groups/{FACEBOOK_GROUP_ID}/permalink/{post_id}/'
+            post['url'] = url
             post['comments'] = []
             comments = each.get('comments')
             if comments:
                 for comment in comments.get('data'):
-                    comment_message = comment.get('message')
-                    post['comments'].append(comment_message)
+                    post['comments'].append(
+                        {
+                            'message': comment.get('message'),
+                            'created_time': comment.get('created_time'),
+                            'like_count': comment.get('like_count'),
+                        }
+                    )
 
                     comments_in_comment = comment.get('comments')
                     if comments_in_comment:
                         for comment_in_comment in comments_in_comment.get('data'):
-                            post['comments'].append(comment_in_comment.get('message'))
+                            post['comments'].append(
+                                {
+                                    'message': comment_in_comment.get('message'),
+                                    'created_time': comment_in_comment.get('created_time'),
+                                    'like_count': comment_in_comment.get('like_count'),
+                                }
+                            )
 
         results.append(post)
 
@@ -87,6 +103,18 @@ def test():
                 print(total)
 
     return jsonify(d)
+
+
+@app.route('/full/')
+def full():
+    query_string = f'fields=feed.since({SINCE})' \
+        '{comments{comments{message,created_time,like_count},' \
+        'message,created_time,like_count,reactions},' \
+        'message,created_time,updated_time,reactions}'
+    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+    feed = graph.request(endpoint_url).get('feed')
+
+    return jsonify(feed)
 
 
 if __name__ == '__main__':

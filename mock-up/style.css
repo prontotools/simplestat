@@ -1,0 +1,22 @@
+.musthead_center_full{
+    padding: 15% 0 35% 0;
+    background: #1b1c1d;
+    color: rgba(255,255,255,.9);
+    font-family: 'Quicksand', sans-serif;
+    font-family: 'Kanit', sans-serif;
+}
+
+
+.musthead_detail_page{
+    padding: 10% 0 35% 0; 
+
+}
+
+.box-shadow-custom{
+    box-shadow: 0 10px 40px -6px rgba(0,0,0,.1);
+    
+}
+
+.search-radius{
+    border-radius: 25px;
+}
