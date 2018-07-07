@@ -112,6 +112,86 @@ def index():
     return jsonify(results)
 
 
+@app.route('/hot-topic/')
+def hot_topic():
+    results = []
+    if DEVELOPMENT_MODE:
+        with open('index.json') as f:
+            results = json.load(f)
+    else:
+        graph = facebook.GraphAPI(
+            access_token=FACEBOOK_USER_ACCESS_TOKEN,
+            version='2.7'
+        )
+        query_string = f'fields=feed.since({SINCE})' \
+                       '{comments{comments{message,created_time,like_count},' \
+                       'message,created_time,like_count,reactions},' \
+                       'message,created_time,updated_time,reactions}'
+        endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+        feed = graph.request(endpoint_url).get('feed')
+
+        for each in feed.get('data'):
+            post = {}
+            message = each.get('message')
+            if message:
+                post['title'] = message
+                post['created_time'] = each.get('created_time')
+                post['update_time'] = each.get('updated_time')
+                post_id = each.get('id').split('_')[1]
+                url = f'https://www.facebook.com/groups/{FACEBOOK_GROUP_ID}/permalink/{post_id}/'
+                post['url'] = url
+                post['comments'] = []
+                comments = each.get('comments')
+                if comments:
+                    for comment in comments.get('data'):
+                        post['comments'].append(
+                            {
+                                'message': comment.get('message'),
+                                'created_time': comment.get('created_time'),
+                                'like_count': comment.get('like_count'),
+                            }
+                        )
+
+                        comments_in_comment = comment.get('comments')
+                        if comments_in_comment:
+                            for comment_in_comment in comments_in_comment.get('data'):
+                                post['comments'].append(
+                                    {
+                                        'message': comment_in_comment.get('message'),
+                                        'created_time': comment_in_comment.get('created_time'),
+                                        'like_count': comment_in_comment.get('like_count'),
+                                    }
+                                )
+
+                post['sentiment'] = get_sentiment(post)
+
+                results.append(post)
+
+    data = []
+    with open('index.json') as f:
+        data = json.load(f)
+
+    new_data = []
+    for post in data:
+        if not post['comments']:
+            continue
+
+        comment_count = len(post['comments'])
+        like_count = 0
+        for comment in post['comments']:
+            like_count += comment['like_count']
+
+        new_data.append({
+            'url': post['url'],
+            'title': post['title'],
+            'hot_score': comment_count + like_count
+        })
+
+    new_data.sort(key=lambda post: post['hot_score'], reverse=True)
+
+    return jsonify(new_data[:3])
+
+
 @app.route('/wordcloud/')
 def wordcloud():
     if DEVELOPMENT_MODE:
