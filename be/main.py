@@ -98,6 +98,50 @@ def index():
     return jsonify(results)
 
 
+@app.route('/wordcloud/')
+def wordcloud():
+    query_string = f'fields=feed.since({SINCE})' \
+        '{comments{comments{message,created_time,like_count},' \
+        'message,created_time,like_count,reactions},' \
+        'message,created_time,updated_time,reactions}'
+    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+    feed = graph.request(endpoint_url).get('feed')
+
+    text = ''
+    for each in feed.get('data'):
+        message = each.get('message')
+        if message:
+            text += message
+            comments = each.get('comments')
+            if comments:
+                for comment in comments.get('data'):
+                    text += comment.get('message')
+
+                    comments_in_comment = comment.get('comments')
+                    if comments_in_comment:
+                        for comment_in_comment in comments_in_comment.get('data'):
+                            text += comment_in_comment.get('message')
+
+
+    from pythainlp.rank import rank
+    from pythainlp.tokenize import word_tokenize
+
+    word_list = word_tokenize(text, engine='newmm')
+    word_count = rank(word_list)
+
+    from toolz.dicttoolz import dissoc
+    new_word_count = dissoc(word_count, ' ')
+    words = []
+    for each in new_word_count:
+        d = {
+            'word': each,
+            'value': new_word_count[each]
+        }
+        words.append(d)
+
+    return jsonify(words)
+
+
 @app.route('/full/')
 def full():
     query_string = f'fields=feed.since({SINCE})' \
