@@ -4,6 +4,7 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 
 import facebook
+from pythainlp.sentiment import sentiment
 
 
 FACEBOOK_GROUP_ID = '635133846845099'
@@ -18,6 +19,33 @@ graph = facebook.GraphAPI(
     access_token=FACEBOOK_USER_ACCESS_TOKEN,
     version='2.7'
 )
+
+
+def get_sentiment(data):
+    sentiment_results = {
+        'pos': 0,
+        'neg': 0,
+    }
+    title = data.get('title')
+    if title:
+        if sentiment(title) == 'pos':
+            sentiment_results['pos'] += 1
+        else:
+            sentiment_results['neg'] += 1
+    comments = data.get('comments')
+    if comments:
+        for comment in comments:
+            if sentiment(comment.get('message')) == 'pos':
+                sentiment_results['pos'] += 1
+            else:
+                sentiment_results['neg'] += 1
+
+    total = sentiment_results['pos'] + sentiment_results['neg']
+    if total:
+        sentiment_results['pos'] /= total
+        sentiment_results['neg'] /= total
+
+    return sentiment_results
 
 
 @app.route('/')
@@ -63,46 +91,11 @@ def index():
                                 }
                             )
 
+        post['sentiment'] = get_sentiment(post)
+
         results.append(post)
 
     return jsonify(results)
-
-
-@app.route('/t/')
-def test():
-    import json
-    from pythainlp.sentiment import sentiment
-
-    with open('simplestat.json') as f:
-        d = json.load(f)
-        for each in d:
-            sentiment_results = {
-                'pos': 0,
-                'neg': 0,
-            }
-            title = each.get('title')
-            if title:
-                if sentiment(title) == 'pos':
-                    sentiment_results['pos'] += 1
-                else:
-                    sentiment_results['neg'] += 1
-            comments = each.get('comments')
-            if comments:
-                for comment in comments:
-                    if sentiment(comment) == 'pos':
-                        sentiment_results['pos'] += 1
-                    else:
-                        sentiment_results['neg'] += 1
-
-            total = sentiment_results['pos'] + sentiment_results['neg']
-            if total:
-                sentiment_results['pos'] /= total
-                sentiment_results['neg'] /= total
-                print(title)
-                print(sentiment_results)
-                print(total)
-
-    return jsonify(d)
 
 
 @app.route('/full/')
