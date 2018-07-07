@@ -17,10 +17,10 @@ export const Navbar = () => (
             </div>
             <div class="right menu colhidden">
                 <div class="ui item">
-                    <h4>Lovely Gatuk</h4>
+                    <h4>Gatuk S Chattanon</h4>
                 </div>
                 <div class="ui item" tabindex="0">
-                    <img class="ui mini circular image" src="https://avatars0.githubusercontent.com/u/7122189?s=460&v=4" alt="label-image" />
+                    <img class="ui mini circular image" src="https://scontent.xx.fbcdn.net/v/t1.0-9/34199240_10213964491280725_7127700275858505728_n.jpg?_nc_cat=0&oh=39476b86b4043276cef3956efc2b0e0c&oe=5BAB185B" alt="label-image" />
                 </div>
                 <a class="item labeled rightsidebar computer only">
                     <i class="ion-wrench large icon"></i>
