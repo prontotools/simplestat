@@ -161,8 +161,8 @@ def activities():
         post_activities[current_date.strftime('%Y-%m-%d')] = 0
 
     for each in feed.get('data'):
-        created_date = each.get('created_time').split('T')[0]
-        post_activities[created_date] += 1
+        updated_date = each.get('updated_time').split('T')[0]
+        post_activities[updated_date] += 1
 
     comment_activities = {}
     for i in range(8):
@@ -176,13 +176,13 @@ def activities():
             comments = each.get('comments')
             if comments:
                 for comment in comments.get('data'):
-                    created_date = each.get('created_time').split('T')[0]
-                    comment_activities[created_date] += 1
+                    updated_date = each.get('updated_time').split('T')[0]
+                    comment_activities[updated_date] += 1
 
                     comments_in_comment = comment.get('comments')
                     if comments_in_comment:
-                        created_date = each.get('created_time').split('T')[0]
-                        comment_activities[created_date] += 1
+                        updated_date = each.get('updated_time').split('T')[0]
+                        comment_activities[updated_date] += 1
 
     results = {
         'posts': {
