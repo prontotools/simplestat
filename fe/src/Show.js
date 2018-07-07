@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import Sentiment from './Sentiment';
 import WordCloud from './WordCloud';
+import Activities from './Activities';
 
 export const Navbar = () => (
     <div class="navslide">
@@ -154,7 +155,8 @@ class Show extends Component{
                                             <h3 class="ui header"> 📊 Activity Stat</h3>
                                         </div>
                                         <div class="ui segment">
-                                            <canvas id="chart-area" style={{width: '218px', height: '109px' ,height: "218", width: "436"}}></canvas>
+                                            <Activities/>
+                                            {/* <canvas id="chart-area" style={{width: '218px', height: '109px' ,height: "218", width: "436"}}></canvas> */}
                                         </div>
                                     </div>
 
