@@ -12,6 +12,8 @@ pythainlp = "*"
 flask-cors = "*"
 facebook-sdk = "*"
 python-dotenv = "*"
+ipdb = "*"
+elasticsearch = "<3.0.0"
 
 
 [dev-packages]

@@ -22,3 +22,9 @@ yarn-error.log*
 
 # vim
 *.sw*
+
+*.swp
+*.pyc
+.env
+
+.idea
