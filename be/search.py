@@ -1,3 +1,4 @@
+import json
 import os
 
 import facebook
@@ -9,6 +10,7 @@ es = Elasticsearch()
 
 FACEBOOK_GROUP_ID = '635133846845099'
 FACEBOOK_USER_ACCESS_TOKEN = os.getenv('FACEBOOK_USER_ACCESS_TOKEN')
+DEVELOPMENT_MODE = os.getenv('DEVELOPMENT_MODE')
 SINCE = '2018-07-04'
 
 
@@ -72,17 +74,21 @@ def search_thread(keyword=''):
 
 
 def get_all_post_in_group():
-    graph = facebook.GraphAPI(
-        access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        version='2.7'
-    )
+    if DEVELOPMENT_MODE:
+        with open('search.json') as f:
+            return json.load(f)
+    else:
+        graph = facebook.GraphAPI(
+            access_token=FACEBOOK_USER_ACCESS_TOKEN,
+            version='2.7'
+        )
 
-    query_string = f'fields=feed.since({SINCE})' \
-                   '{comments{comments{message,created_time,like_count},' \
-                   'message,created_time,like_count,reactions},' \
-                   'message,created_time,updated_time,reactions}'
-    endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    feed = graph.request(endpoint_url).get('feed')
+        query_string = f'fields=feed.since({SINCE})' \
+                       '{comments{comments{message,created_time,like_count},' \
+                       'message,created_time,like_count,reactions},' \
+                       'message,created_time,updated_time,reactions}'
+        endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+        feed = graph.request(endpoint_url).get('feed')
 
     results = []
     for each in feed.get('data'):

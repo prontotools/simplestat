@@ -9,10 +9,16 @@ import facebook
 from pythainlp.sentiment import sentiment
 from toolz import get_in
 
-from search import search_thread, index_thread
+from search import (
+    get_all_post_in_group,
+    index_thread,
+    search_thread,
+)
+
 
 FACEBOOK_GROUP_ID = '635133846845099'
 FACEBOOK_USER_ACCESS_TOKEN = os.getenv('FACEBOOK_USER_ACCESS_TOKEN')
+DEVELOPMENT_MODE = os.getenv('DEVELOPMENT_MODE')
 SINCE = '2018-07-04'
 
 app = Flask(__name__)
@@ -50,19 +56,20 @@ def get_sentiment(data):
 
 @app.route('/')
 def index():
-    # graph = facebook.GraphAPI(
-        # access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        # version='2.7'
-    # )
-    # query_string = f'fields=feed.since({SINCE})' \
-        # '{comments{comments{message,created_time,like_count},' \
-        # 'message,created_time,like_count,reactions},' \
-        # 'message,created_time,updated_time,reactions}'
-    # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    # feed = graph.request(endpoint_url).get('feed')
-
-    with open('index.json') as f:
-        return jsonify(json.load(f))
+    if DEVELOPMENT_MODE:
+        with open('index.json') as f:
+            return jsonify(json.load(f))
+    else:
+        graph = facebook.GraphAPI(
+            access_token=FACEBOOK_USER_ACCESS_TOKEN,
+            version='2.7'
+        )
+        query_string = f'fields=feed.since({SINCE})' \
+            '{comments{comments{message,created_time,like_count},' \
+            'message,created_time,like_count,reactions},' \
+            'message,created_time,updated_time,reactions}'
+        endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+        feed = graph.request(endpoint_url).get('feed')
 
     results = []
     for each in feed.get('data'):
@@ -107,20 +114,21 @@ def index():
 
 @app.route('/wordcloud/')
 def wordcloud():
-    # graph = facebook.GraphAPI(
-        # access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        # version='2.7'
-    # )
+    if DEVELOPMENT_MODE:
+        with open('wordcloud.json') as f:
+            return jsonify(json.load(f))
+    else:
+        graph = facebook.GraphAPI(
+            access_token=FACEBOOK_USER_ACCESS_TOKEN,
+            version='2.7'
+        )
 
-    # query_string = f'fields=feed.since({SINCE})' \
-        # '{comments{comments{message,created_time,like_count},' \
-        # 'message,created_time,like_count,reactions},' \
-        # 'message,created_time,updated_time,reactions}'
-    # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    # feed = graph.request(endpoint_url).get('feed')
-
-    with open('wordcloud.json') as f:
-        return jsonify(json.load(f))
+        query_string = f'fields=feed.since({SINCE})' \
+            '{comments{comments{message,created_time,like_count},' \
+            'message,created_time,like_count,reactions},' \
+            'message,created_time,updated_time,reactions}'
+        endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+        feed = graph.request(endpoint_url).get('feed')
 
     text = ''
     for each in feed.get('data'):
@@ -159,20 +167,21 @@ def wordcloud():
 
 @app.route('/activities/')
 def activities():
-    # graph = facebook.GraphAPI(
-        # access_token=FACEBOOK_USER_ACCESS_TOKEN,
-        # version='2.7'
-    # )
+    if DEVELOPMENT_MODE:
+        with open('activities.json') as f:
+            return jsonify(json.load(f))
+    else:
+        graph = facebook.GraphAPI(
+            access_token=FACEBOOK_USER_ACCESS_TOKEN,
+            version='2.7'
+        )
 
-    # query_string = f'fields=feed.since({SINCE})' \
-        # '{comments{comments{message,created_time,like_count},' \
-        # 'message,created_time,like_count,reactions},' \
-        # 'message,created_time,updated_time,reactions}'
-    # endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
-    # feed = graph.request(endpoint_url).get('feed')
-
-    with open('activities.json') as f:
-        return jsonify(json.load(f))
+        query_string = f'fields=feed.since({SINCE})' \
+            '{comments{comments{message,created_time,like_count},' \
+            'message,created_time,like_count,reactions},' \
+            'message,created_time,updated_time,reactions}'
+        endpoint_url = f'{FACEBOOK_GROUP_ID}?{query_string}'
+        feed = graph.request(endpoint_url).get('feed')
 
     post_activities = {}
     for i in range(8):
