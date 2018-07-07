@@ -18,10 +18,6 @@ app = Flask(__name__)
 
 CORS(app)
 
-graph = facebook.GraphAPI(
-    access_token=FACEBOOK_USER_ACCESS_TOKEN,
-    version='2.7'
-)
 
 
 def get_sentiment(data):
@@ -103,6 +99,11 @@ def index():
 
 @app.route('/wordcloud/')
 def wordcloud():
+    graph = facebook.GraphAPI(
+        access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        version='2.7'
+    )
+
     query_string = f'fields=feed.since({SINCE})' \
         '{comments{comments{message,created_time,like_count},' \
         'message,created_time,like_count,reactions},' \
@@ -147,6 +148,11 @@ def wordcloud():
 
 @app.route('/activities/')
 def activities():
+    graph = facebook.GraphAPI(
+        access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        version='2.7'
+    )
+
     query_string = f'fields=feed.since({SINCE})' \
         '{comments{comments{message,created_time,like_count},' \
         'message,created_time,like_count,reactions},' \
@@ -220,6 +226,11 @@ def update_index():
 
 @app.route('/full/')
 def full():
+    graph = facebook.GraphAPI(
+        access_token=FACEBOOK_USER_ACCESS_TOKEN,
+        version='2.7'
+    )
+
     query_string = f'fields=feed.since({SINCE})' \
         '{comments{comments{message,created_time,like_count},' \
         'message,created_time,like_count,reactions},' \

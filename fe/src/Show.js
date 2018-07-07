@@ -1,5 +1,7 @@
-
 import React, { Component } from 'react';
+import axios from 'axios'
+import moment from 'moment'
+
 import WordCloud from './WordCloud';
 
 export const Navbar = () => (
@@ -39,6 +41,8 @@ export const GridSection = () => (
 class Show extends Component{
 
     state = {
+        searchKeyword: '',
+        searchResult: [],
         hotTopic: [{
             name: 'Data engine5',
             author: 'mark',
@@ -62,6 +66,24 @@ class Show extends Component{
         }]
     }
 
+    handleOnSearchChange = e => {
+      return this.setState({
+        searchKeyword: e.target.value
+      })
+    }
+
+  submitSearch = e => {
+        if (e.key === 'Enter') {
+          axios.get(`http://localhost:5000/search/${this.state.searchKeyword}`).then(
+            res => {
+                this.setState({
+                    searchResult: res.data
+                })
+            }
+          )
+        }
+    }
+
     componentWillMount = () => {
         document.body.style.backgroundColor = "#eaf2f7";
         document.body.style.padding = '0px';
@@ -83,12 +105,19 @@ class Show extends Component{
                             <div class="ui stackable two column grid">
                                 <div class="column">
 
-                                {/* SEARCH */}
+                                  {/* SEARCH */}
                                   <div class="ui segments">
                                     <div class="ui segment">
                                       <div class="ui search">
                                         <div class="ui large icon input">
-                                          <input class="prompt" type="text" placeholder="What's on your mind ?" />
+                                          <input
+                                            class="prompt"
+                                            type="text"
+                                            placeholder="What's on your mind ?"
+                                            value={this.state.searchKeyword}
+                                            onChange={this.handleOnSearchChange}
+                                            onKeyPress={this.submitSearch}
+                                          />
                                           <i class="search icon" />
                                         </div>
                                       </div>
@@ -96,54 +125,21 @@ class Show extends Component{
 
                                     <div class="ui segment">
                                       <div class="ui items">
-                                        <div class="item">
-                                          <div class="ui tiny rounded image">
-                                          </div>
-                                          <div class="content">
-                                            <a class="header" href="#">New App here!</a>
-                                            <div class="meta">
-                                              <span class="cinema">Irure ex aute dolor minim sit. Enim eiusmod cillum incididunt fugiat</span>
+                                        { this.state.searchResult.map(result => (
+                                          <div class="item">
+                                            <div class="ui tiny rounded image">
                                             </div>
-                                            <div class="description">
-                                              <p></p>
-                                            </div>
-                                            <div class="extra">
-                                              <button class="ui greenli inverted tiny button follow">Follow</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="item">
-                                          <div class="ui rounded tiny image">
-                                          </div>
-                                          <div class="content">
-                                            <a class="header">Ashley Ross</a>
-                                            <div class="meta">
-                                              <span class="cinema">Ea nostrud adipisicing ut et sint culpa et ut esse minim Lorem ex voluptate ex</span>
-                                            </div>
-                                            <div class="description">
-                                              <p></p>
-                                            </div>
-                                            <div class="extra">
-                                              <button class="ui greenli inverted tiny button follow">Follow</button>
+                                            <div class="content">
+                                              <a class="header" href={result._source.url}>{result._source.title}</a>
+                                              <div class="meta">
+                                                <span class="cinema">{moment(result._source.created_time).fromNow()}</span>
+                                                <br />
+                                                <br />
+                                                <span class="cinema"><strong>Score:</strong> {Math.round(result._score * 100) / 100}</span>
+                                              </div>
                                             </div>
                                           </div>
-                                        </div>
-                                        <div class="item">
-                                          <div class="ui rounded tiny image">
-                                          </div>
-                                          <div class="content">
-                                            <a class="header">Trina Marquez</a>
-                                            <div class="meta">
-                                              <span class="cinema">Excepteur ut elit dolor officia consequat do duis cillum culpa pariatur</span>
-                                            </div>
-                                            <div class="description">
-                                              <p></p>
-                                            </div>
-                                            <div class="extra">
-                                              <button class="ui greenli inverted tiny button follow">Follow</button>
-                                            </div>
-                                          </div>
-                                        </div>
+                                        )) }
                                       </div>
                                     </div>
                                   </div>
