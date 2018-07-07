@@ -1,5 +1,6 @@
 
 import React, { Component } from 'react';
+import WordCloud from './WordCloud';
 
 export const Navbar = () => (
     <div class="navslide">
@@ -93,7 +94,8 @@ class Show extends Component{
 
                                     <div class="ui segments">
                                         <div class="ui segment">
-                                        <img src="https://media.istockphoto.com/photos/word-cloud-about-leadership-picture-id472300670" width="90%" alt="word-cloud" />
+                                            <WordCloud/>
+                                        {/* <img src="https://media.istockphoto.com/photos/word-cloud-about-leadership-picture-id472300670" width="90%" alt="word-cloud" /> */}
                                         </div>
                                     </div>
                                 </div>
